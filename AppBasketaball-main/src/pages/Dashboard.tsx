@@ -30,26 +30,26 @@ export default function Dashboard() {
   const avgPts = stats.length > 0 ? totalPts / stats.length : 0;
 
   return (
-    <div className="p-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-white">Dashboard</h1>
-        <p className="text-slate-400 mt-1">Season Overview & Analytics</p>
+    <div className="p-4 sm:p-6 lg:p-8">
+      <div className="mb-6 sm:mb-8">
+        <h1 className="text-2xl sm:text-3xl font-bold text-white">Dashboard</h1>
+        <p className="text-slate-400 mt-1 text-sm">Season Overview & Analytics</p>
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
         <StatCard label="Total Players" value={players.length} icon={<Users size={18} />} color="blue" />
         <StatCard label="Games Played" value={finalGames.length} icon={<Calendar size={18} />} color="orange" />
         <StatCard label="Game Logs" value={stats.length} icon={<Zap size={18} />} color="green" />
         <StatCard label="Avg Points/Log" value={formatNum(avgPts)} icon={<Target size={18} />} color="orange" />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-4 sm:mb-6">
         <RankingList title="Top Scorers" icon={<Trophy size={16} />} players={topScorers} stat="ppg" label="PPG" color="orange" />
         <RankingList title="Top Rebounders" icon={<TrendingUp size={16} />} players={topRebounders} stat="rpg" label="RPG" color="blue" />
         <RankingList title="Top Assists" icon={<Zap size={16} />} players={topAssists} stat="apg" label="APG" color="green" />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         <div className="bg-slate-900 border border-slate-700/50 rounded-xl p-5">
           <h3 className="text-white font-semibold mb-4 flex items-center gap-2">
             <Calendar size={16} className="text-orange-400" />

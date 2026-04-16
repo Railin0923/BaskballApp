@@ -45,23 +45,23 @@ export default function PlayersPage() {
   };
 
   return (
-    <div className="p-8">
-      <div className="flex items-center justify-between mb-8">
+    <div className="p-4 sm:p-6 lg:p-8">
+      <div className="flex items-center justify-between mb-6 sm:mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-white">Players</h1>
-          <p className="text-slate-400 mt-1">{players.length} players registered</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-white">Players</h1>
+          <p className="text-slate-400 mt-1 text-sm">{players.length} players registered</p>
         </div>
-        <div className="flex gap-3">
-          <button onClick={handleExport} className="flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-600 text-slate-300 hover:border-slate-500 text-sm transition-colors">
-            <Download size={15} /> Export CSV
+        <div className="flex gap-2">
+          <button onClick={handleExport} className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-slate-600 text-slate-300 hover:border-slate-500 text-sm transition-colors">
+            <Download size={14} /> <span className="hidden sm:inline">Export CSV</span>
           </button>
-          <button onClick={() => setShowForm(true)} className="flex items-center gap-2 px-4 py-2 rounded-xl bg-orange-500 hover:bg-orange-400 text-white text-sm font-semibold transition-colors">
-            <Plus size={15} /> Add Player
+          <button onClick={() => setShowForm(true)} className="flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl bg-orange-500 hover:bg-orange-400 text-white text-sm font-semibold transition-colors">
+            <Plus size={15} /> <span className="hidden sm:inline">Add Player</span><span className="sm:hidden">Add</span>
           </button>
         </div>
       </div>
 
-      <div className="relative mb-6">
+      <div className="relative mb-5 sm:mb-6">
         <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
         <input
           value={search} onChange={(e) => setSearch(e.target.value)}
@@ -78,8 +78,8 @@ export default function PlayersPage() {
           <button onClick={() => setShowForm(true)} className="text-orange-400 text-sm hover:text-orange-300">Add your first player</button>
         </div>
       ) : (
-        <div className="overflow-hidden rounded-xl border border-slate-700/50">
-          <table className="w-full">
+        <div className="overflow-x-auto rounded-xl border border-slate-700/50">
+          <table className="w-full min-w-max">
             <thead>
               <tr className="bg-slate-900 border-b border-slate-700/50">
                 {['Player', 'Team', 'GP', 'PPG', 'APG', 'RPG', 'SPG', 'BPG', 'FG%', 'TS%', ''].map((h) => (

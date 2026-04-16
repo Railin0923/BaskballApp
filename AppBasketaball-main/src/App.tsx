@@ -4,17 +4,20 @@ import Layout from './components/Layout';
 import AuthPage from './pages/AuthPage';
 import Dashboard from './pages/Dashboard';
 import PlayersPage from './pages/PlayersPage';
+import TeamsPage from './pages/TeamsPage';
+import TeamDetailPage from './pages/TeamDetailPage';
 import GamesPage from './pages/GamesPage';
 import GameDetailPage from './pages/GameDetailPage';
 import ShotChartPage from './pages/ShotChartPage';
 import LiveTrackerPage from './pages/LiveTrackerPage';
 
-type Page = 'dashboard' | 'players' | 'games' | 'shot-chart' | 'live-tracker';
+type Page = 'dashboard' | 'players' | 'teams' | 'games' | 'shot-chart' | 'live-tracker';
 
 export default function App() {
   const { user, loading, signOut } = useAuth();
   const [currentPage, setCurrentPage] = useState<Page>('dashboard');
   const [viewGameId, setViewGameId] = useState<string | null>(null);
+  const [viewTeamId, setViewTeamId] = useState<string | null>(null);
 
   if (loading) {
     return (
@@ -42,12 +45,19 @@ export default function App() {
         />
       );
     }
+    if (viewTeamId) {
+      return (
+        <TeamDetailPage
+          teamId={viewTeamId}
+          onBack={() => { setViewTeamId(null); setCurrentPage('teams'); }}
+        />
+      );
+    }
     switch (currentPage) {
       case 'dashboard': return <Dashboard />;
+      case 'teams': return <TeamsPage onViewTeam={(id) => setViewTeamId(id)} />;
       case 'players': return <PlayersPage />;
-      case 'games': return (
-        <GamesPage onViewGame={(id) => { setViewGameId(id); }} />
-      );
+      case 'games': return <GamesPage onViewGame={(id) => setViewGameId(id)} />;
       case 'shot-chart': return <ShotChartPage />;
       case 'live-tracker': return <LiveTrackerPage />;
       default: return <Dashboard />;
@@ -57,7 +67,7 @@ export default function App() {
   return (
     <Layout
       currentPage={currentPage}
-      onNavigate={(page) => { setCurrentPage(page); setViewGameId(null); }}
+      onNavigate={(page) => { setCurrentPage(page); setViewGameId(null); setViewTeamId(null); }}
       onSignOut={signOut}
       userEmail={user.email}
     >

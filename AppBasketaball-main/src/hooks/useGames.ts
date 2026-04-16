@@ -11,7 +11,7 @@ export function useGames() {
     setLoading(true);
     const { data, error } = await supabase
       .from('games')
-      .select('*')
+      .select('*, home_team_data:teams!games_home_team_id_fkey(*), away_team_data:teams!games_away_team_id_fkey(*)')
       .order('game_date', { ascending: false });
     if (error) setError(error.message);
     else setGames(data as Game[]);
@@ -20,7 +20,7 @@ export function useGames() {
 
   useEffect(() => { fetch(); }, [fetch]);
 
-  async function createGame(g: Omit<Game, 'id' | 'user_id' | 'created_at'>) {
+  async function createGame(g: Omit<Game, 'id' | 'user_id' | 'created_at' | 'home_team_data' | 'away_team_data'>) {
     const { data: { user } } = await supabase.auth.getUser();
     const { data, error } = await supabase
       .from('games')
